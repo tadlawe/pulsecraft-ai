@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseCraft AI - Generador de Presupuestos Automáticos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+    <!-- Header -->
+    <header class="border-b border-slate-800 p-6">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                PulseCraft AI
+            </h1>
+            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full">
+                Uso Libre & Sin Registro
+            </span>
+        </div>
+    </header>
+
+    <!-- Calculador Principal -->
+    <main class="max-w-3xl mx-auto px-6 py-12 w-full">
+        <div class="text-center mb-10">
+            <h2 class="text-4xl font-extrabold mb-3">Calcula tu presupuesto en 10 segundos</h2>
+            <p class="text-slate-400">Diseñado para autónomos, contratistas y freelancers. Obtén un desglose profesional e inmediato.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+            <div>
+                <label class="block text-sm font-medium mb-2 text-slate-300">Horas estimadas de trabajo: <span id="hoursVal" class="text-blue-400 font-bold">10</span>h</label>
+                <input type="range" id="hours" min="1" max="100" value="10" class="w-full accent-blue-500" oninput="updateCalculator()">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 text-slate-300">Coste estimado de materiales (€): <span id="materialsVal" class="text-blue-400 font-bold">150</span>€</label>
+                <input type="range" id="materials" min="0" max="2000" step="10" value="150" class="w-full accent-blue-500" oninput="updateCalculator()">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 text-slate-300">Nivel de Urgencia</label>
+                <select id="urgency" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-slate-200 focus:outline-none focus:border-blue-500" onchange="updateCalculator()">
+                    <option value="1">Estándar (Sin recargo)</option>
+                    <option value="1.2">Alta (+20% recargo)</option>
+                    <option value="1.5">Urgente / Fin de semana (+50% recargo)</option>
+                </select>
+            </div>
+
+            <hr class="border-slate-800">
+
+            <div class="flex justify-between items-center pt-2">
+                <div>
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">Total Estimado</p>
+                    <p id="totalPrice" class="text-4xl font-black text-emerald-400">550.00 €</p>
+                </div>
+                <button onclick="alert('¡Función de descarga en PDF activada para la comunidad!')" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-semibold px-6 py-3 rounded-xl shadow-lg transition-all">
+                    Descargar Presupuesto
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 p-6 text-center text-xs text-slate-500">
+        © 2026 PulseCraft AI. Herramienta gratuita para la comunidad.
+    </footer>
+
+    <script>
+        function updateCalculator() {
+            const hours = parseFloat(document.getElementById('hours').value);
+            const materials = parseFloat(document.getElementById('materials').value);
+            const urgency = parseFloat(document.getElementById('urgency').value);
+            
+            document.getElementById('hoursVal').innerText = hours;
+            document.getElementById('materialsVal').innerText = materials;
+
+            const hourlyRate = 40; // 40€/h precio base
+            const total = ((hours * hourlyRate) + materials) * urgency;
+
+            document.getElementById('totalPrice').innerText = total.toFixed(2) + ' €';
+        }
+    </script>
+</body>
+</html>
